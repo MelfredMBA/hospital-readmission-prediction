@@ -11,6 +11,7 @@ Program stack:
 - Backend: Flask (Python)
 - Frontend: HTML, CSS, JavaScript
 - Machine Learning Dependencies: scikit-learn, XGBoost
+- Machine Learning Algorithms: Random Forest, Logistic Regression, Decision Tree, and XGBClassifier
 - Deployment: GitHub + Render/Railway/Heroku
 
 XXXX Pending work: XXXX
