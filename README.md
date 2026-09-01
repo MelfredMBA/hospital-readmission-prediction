@@ -1,1 +1,1 @@
-# hspital-readmission-prediction
+# hospital-readmission-prediction
