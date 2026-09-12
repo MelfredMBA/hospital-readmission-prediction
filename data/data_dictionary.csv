@@ -1,0 +1,11 @@
+variable,type,unit,allowed_values,observed_range,missing,description
+age,Numeric (continuous),years,0 to 110,18 to 150,647,Patient age at admission
+length_of_stay_days,Numeric (count),days,1 to 365,1 to 29,648,Days from admission to discharge
+num_diagnoses,Numeric (count),count,1 to 50,1 to 14,645,Number of diagnoses recorded during the stay
+num_medications,Numeric (count),count,0 to 50,1 to 200,646,Number of medications prescribed
+prev_admissions,Numeric (count),count,0 to 50,0 to 9,646,Number of previous hospital admissions
+glucose_level,Numeric (continuous),mg/dL,40 to 600,60 to 900,646,Blood glucose level
+bmi,Numeric (continuous),kg/m2,10 to 80,-5 to 50,646,Body mass index
+has_diabetes,Binary,none,"0 = no, 1 = yes",0 to 1,647,Diabetes diagnosis
+discharge_type,Categorical (coded),none,"0, 1, 2",0 to 2,645,Discharge category code
+readmitted_30days,Binary (target),none,"0 = no, 1 = yes",0 to 1,0,Readmitted within 30 days of discharge
