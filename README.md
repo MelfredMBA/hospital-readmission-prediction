@@ -14,5 +14,9 @@ Program stack:
 - Machine Learning Algorithms: Random Forest, Logistic Regression, Decision Tree, and XGBClassifier
 - Deployment: GitHub + Render/Railway/Heroku
 
-XXXX Pending work: XXXX
-- models/3 models.
+Repository Structure:
+- notebooks/ Actual whole notebook with Flask deployment
+- models/ Trained models
+- src/ Python source scripts
+- data/ Data dictionary and dataset with source
+- Readme.md
