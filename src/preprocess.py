@@ -1,32 +1,18 @@
-# Imports
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from xgboost import XGBClassifier
-from sklearn.metrics import accuracy_score, roc_auc_score, f1_score
-from sklearn.metrics import precision_score, recall_score, confusion_matrix
-from sklearn.metrics import classification_report
-from sklearn.impute import SimpleImputer
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 from sklearn.feature_selection import SelectKBest, f_classif
-from sklearn.decomposition import PCA
-import shap
-import pickle
-import json
-import warnings
 import random
-warnings.filterwarnings('ignore')
 
 SEED = 42
 random.seed(SEED)
 np.random.seed(SEED)
 
-# Data Cleaning (Nulls and Outliers)
+target_col = 'readmitted_30days'
+
+file_path = '/content/drive/MyDrive/CapstoneDataset/hospital_readmission.csv'
+df = pd.read_csv(file_path)
 
 print("Check for missing values: ")
 for col in df.columns:
@@ -56,10 +42,6 @@ for col in numeric_cols:
     if col != target_col:
         df = cap_outliers(df, col)
 print(f"\nOutliers capped for {len(numeric_cols)-1} numeric columns")
-
-# Check contributing features (Binning and Domain Features)
-
-target_col = 'readmitted_30days'
 
 if 'age' in df.columns:
     df['age'] = df['age'].astype(str).str.replace('_err', '').str.replace('_err', '')
@@ -99,7 +81,7 @@ feature_cols = [
     'num_diagnoses',
     'num_medications',
     'prev_admissions',
-    'glucose_level', #Uses data from diabetes.
+    'glucose_level',
     'bmi',
     'has_diabetes',
     'discharge_type',
@@ -125,21 +107,15 @@ print(f"Features: {feature_cols}")
 X = df[feature_cols]
 y = df[target_col]
 
-# Train-test split. It uses features with highest significance according to KBest (Feature selection and scaling)
-
-
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
-
 
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-
 selector = SelectKBest(score_func=f_classif, k=min(10, len(feature_cols)))
 X_train_selected = selector.fit_transform(X_train_scaled, y_train)
 X_test_selected = selector.transform(X_test_scaled)
 selected_features = np.array(feature_cols)[selector.get_support()]
-
 
 print(f"\nSelected features ({len(selected_features)}): {selected_features}")
